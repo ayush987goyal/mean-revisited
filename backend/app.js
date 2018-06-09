@@ -1,8 +1,21 @@
 const express = require('express');
+const cors = require('cors');
 
 const app = express();
 
-app.use('/api/posts', (req, res, next) => {
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+app.post('/api/posts', (req, res, next) => {
+  const post = req.body;
+  console.log(post);
+  res.status(201).json({
+    message: 'Post added successfully'
+  });
+});
+
+app.get('/api/posts', (req, res, next) => {
   const posts = [
     {
       id: 'post1',
