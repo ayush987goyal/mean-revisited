@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const postsRoutes = require('./routes/posts');
+const userRoutes = require('./routes/user');
 
 const app = express();
 app.use(cors());
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/images', express.static(path.join('backend/images')));
 
 app.use('/api/posts', postsRoutes);
+app.use('/api/user', userRoutes);
 
 mongoose
   .connect(process.env.DB_URL)
