@@ -8,6 +8,7 @@ import { AuthData } from './auth-data.model';
   providedIn: 'root'
 })
 export class AuthService {
+  private isAuthenticated = false;
   private token;
   private authStatusListener = new Subject<boolean>();
 
@@ -15,6 +16,10 @@ export class AuthService {
 
   getToken() {
     return this.token;
+  }
+
+  getIsAuth() {
+    return this.isAuthenticated;
   }
 
   getAuthStatusListener() {
@@ -34,7 +39,16 @@ export class AuthService {
       .post<{ token: string }>('http://localhost:3000/api/user/login', authData)
       .subscribe(res => {
         this.token = res.token;
-        this.authStatusListener.next(true);
+        if (res.token) {
+          this.isAuthenticated = true;
+          this.authStatusListener.next(true);
+        }
       });
+  }
+
+  logoutUser() {
+    this.token = null;
+    this.isAuthenticated = false;
+    this.authStatusListener.next(false);
   }
 }

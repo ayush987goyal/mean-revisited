@@ -10,7 +10,7 @@
            [alt]="post.title">
     </div>
     <p>{{ post.content }}</p>
-    <mat-action-row>
+    <mat-action-row *ngIf="userIsAuthenticated">
       <button mat-button
               color="primary"
               (click)="onEdit(post.id)">EDIT</button>
