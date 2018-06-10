@@ -20,6 +20,10 @@
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
+<mat-paginator [length]="totalPosts"
+               [pageSize]="postsPerPage"
+               [pageSizeOptions]="pageSizeOptions"
+               (page)="onChangedPage($event)"></mat-paginator>
 <ng-template #nopost>
   <p class="info-text mat-body-1">No posts added yet!</p>
 </ng-template>

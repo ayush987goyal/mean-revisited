@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { PageEvent } from '@angular/material';
 
 import { Post } from '../post.model';
 import { PostsService } from '../posts.service';
@@ -13,6 +14,9 @@ import { PostsService } from '../posts.service';
 export class PostListComponent implements OnInit, OnDestroy {
   posts: Post[] = [];
   isLoading = false;
+  totalPosts = 10;
+  postsPerPage = 2;
+  pageSizeOptions = [1, 2, 5, 10];
   private postsSub: Subscription;
 
   constructor(private postsService: PostsService, private router: Router) {}
@@ -24,6 +28,10 @@ export class PostListComponent implements OnInit, OnDestroy {
       this.isLoading = false;
       this.posts = posts;
     });
+  }
+
+  onChangedPage(pageData: PageEvent) {
+    console.log(pageData);
   }
 
   onEdit(postId: string) {
